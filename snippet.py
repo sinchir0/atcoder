@@ -6,8 +6,11 @@ a = int(input())
 # 数字の列
 a, b, c, d = map(int, input().split())
 
-# 文字の列
-str_list = list(map(int, input().split()))
+# 数字のlist
+num_list = list(map(int, input().split()))
+
+# 数字の配列のlist
+num_arr_list = [list(map(int, input().split())) for _ in range(n)]
 
 # 方向の探索
 
