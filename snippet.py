@@ -18,6 +18,11 @@ board_list = [list(input()) for _ in range(r)]
 # 1始まりを0始まりに変換
 sy, sx = map(lambda x: int(x) - 1, input().split())
 
+
+# 定数
+ans = 1001001001  # ちょうど10桁と分かりやすく、32bitでもC言語だったらオーバーフローしない数字
+
+
 # 方向の探索
 
 # 4方向
@@ -31,6 +36,7 @@ dx = (1, 1, 0, -1, -1, -1, 0, 1)
 # 盤面からはみ出さないようにする
 if ny < 0 or ny >= h or nx < 0 or nx >= w:
     continue
+
 
 # 幅優先探索
 # https://atcoder.jp/contests/atc002/tasks/abc007_3
