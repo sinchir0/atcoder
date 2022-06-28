@@ -4,9 +4,14 @@
 poetry install
 ```
 
-準備
+１問解く際の準備
 ```
-cp -r template CONTEST_NAME
+cp -r template_1 CONTEST_NAME
+```
+
+コンテストの準備
+```
+cp -r template_contest CONTEST_NAME
 ```
 
 コンテスト中
