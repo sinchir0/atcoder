@@ -43,40 +43,67 @@ if ny < 0 or ny >= h or nx < 0 or nx >= w:
 
 # 幅優先探索
 # https://atcoder.jp/contests/atc002/tasks/abc007_3
+
 from collections import deque
 
-if __name__ == "__main__":
+dy = (0, 1, 0, -1)
+dx = (1, 0, -1, 0)
 
-    dy = (0, 1, 0, -1)
-    dx = (1, 0, -1, 0)
 
-    h, w = map(int, input().split())
-    sy, sx = map(lambda x: int(x) - 1, input().split())
-    gy, gx = map(lambda x: int(x) - 1, input().split())
+def grid_bfs(grid: list, sy: int, sx: int, INF: int = 1 << 60, wall: str = "#") -> list:
+    h = len(grid)
+    w = len(grid[0])
 
-    board = [list(input()) for _ in range(h)]
-    board[sy][sx] = 0
+    q = deque()
+    q.append((sy, sx))
 
-    d = deque()
-    d.append((sy, sx))
+    INF = 1 << 60  # 2**60
+    dist = [[INF] * w for _ in range(h)]
+    dist[sy][sx] = 0
 
-    while len(d) > 0:
+    while len(q) > 0:
         # 次に探索する数字はキューからpopする
-        y, x = d.popleft()
+        y, x = q.popleft()
 
         # 最初の位置から四方の検索
         for di in range(4):
             ny = y + dy[di]
             nx = x + dx[di]
 
-            if ny <= 0 or ny >= h or nx < 0 or nx >= w:
+            # 盤面からはみ出さないようにする
+            if ny < 0 or ny >= h or nx < 0 or nx >= w:
+                continue
+            if grid[ny][nx] == wall:
+                continue
+            if dist[ny][nx] != INF:
                 continue
 
-            # "."を発見したらキューにpushする
-            if board[ny][nx] == ".":
-                d.append((ny, nx))
+            dist[ny][nx] = dist[y][x] + 1
+            q.append((ny, nx))
 
-                # boardの要素を現在の数字+1で置き換える
-                board[ny][nx] = board[y][x] + 1
+            # debug用
+            for value in dist:
+                print(*value)
+            print("")
 
-    print(board[gy][gx])
+    return dist
+
+
+def main():
+
+    h, w = map(int, input().split())
+    sy, sx = map(int, input().split())
+    gy, gx = map(int, input().split())
+
+    sy, sx = sy - 1, sx - 1
+    gy, gx = gy - 1, gx - 1
+
+    grid = [input() for _ in range(h)]
+
+    dist = grid_bfs(grid, sy, sx)
+
+    print(dist[gy][gx])
+
+
+if __name__ == "__main__":
+    main()
