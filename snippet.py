@@ -13,18 +13,31 @@ num_list = list(map(int, input().split()))
 num_arr_list = [list(map(int, input().split())) for _ in range(n)]
 
 # 盤面のlist
-board_list = [list(input()) for _ in range(r)]
+board = [list(input()) for _ in range(r)]
+
+# 12
+# 34
+# みたいに、間にスペースを挟まない場合
+board = [list(map(int, input())) for _ in range(n)]
 
 # 1始まりを0始まりに変換
 sy, sx = map(lambda x: int(x) - 1, input().split())
 
 
+# トーラス型への対応
+# 盤面の一番右を更に右に進むと、盤面の一番左に繋がるやつ
+x %= n
+y %= n
+
+
 # 定数
 ans = 1001001001  # ちょうど10桁と分かりやすく、32bitでもC言語だったらオーバーフローしない数字
+
 
 # 切り上げ、切り捨て
 n // w  # 切り捨て
 (n + w - 1) // w  # 切り上げ
+
 
 # 小数点以下の計算をしないために
 # もし100 * 1.08をしたい場合は
@@ -36,19 +49,37 @@ n // w  # 切り捨て
 # >>> 100 * 1.08
 # 108.0
 
+# 最小値を求める場合の答えの初期値
+ans = float("inf")
+
+
 # 方向の探索
 
 # 4方向
 dy = (0, 1, 0, -1)
 dx = (1, 0, -1, 0)
 
+dydx4 = ((0, 1), (1, 0), (-1, 0), (0, -1))
+
 # 8方向
 dy = (0, 1, 1, 1, 0, -1, -1, -1)
 dx = (1, 1, 0, -1, -1, -1, 0, 1)
 
+dydx8 = ((0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1))
+
+
 # 盤面からはみ出さないようにする
 if ny < 0 or ny >= h or nx < 0 or nx >= w:
     continue
+
+
+# 大きい値を採用する
+ans = max(ans, tmp)
+
+
+# 数字を一つずつ末尾に追加していく
+# 元の数字に10をかけて実現
+tmp = 10 * tmp + board[x][y]
 
 
 # 幅優先探索
