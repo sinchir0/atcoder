@@ -148,3 +148,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ランレングス圧縮
+from itertools import groupby
+
+
+def rle(S: str) -> "List[tuple(str, int)]":
+    grouped = groupby(S)
+    res = []
+    for k, v in grouped:
+        res.append((k, int(len(list(v)))))
+    return res
