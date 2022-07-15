@@ -162,6 +162,19 @@ def rle(S: str) -> "List[tuple(str, int)]":
 
 
 # bit全探索
+
+# 問題
+# N個の硬貨があります、番号iの硬貨はA_i円です。
+# 硬貨の選び方は2^N通りありますが、
+# その中で合計価格がちょうどX円になる選び方は存在するでしょうか。
+
+input_text = """
+3 100
+31 39 40 11 20 30
+"""
+
+def_input(input_text)
+
 if __name__ == "__main__":
     # https://www.youtube.com/watch?v=mEdFo-IbRdo
     n, x = map(int, input().split())
