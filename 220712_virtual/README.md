@@ -1,1 +1,1 @@
-CONTEST URL
+https://kenkoooo.com/atcoder/#/contest/show/9a55f934-c722-4401-a150-f027a79e055e
