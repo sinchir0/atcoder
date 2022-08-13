@@ -182,7 +182,12 @@ if __name__ == "__main__":
     n, x = map(int, input().split())
     a = list(map(int, input().split()))
 
+    # 2 ** n回分、回す
+    # 1 << 5 == 2 ** 5
     for i in range(1 << n):
+        # 硬貨を利用するかどうか、をuseに格納していく
+        # 例えば、4個の硬貨(1, 10, 11, 100)が存在し、use=[False, True, True, False]の場合は
+        # 10と11は利用する、という意味になる
         use = [False] * n
 
         for j in range(n):
@@ -277,7 +282,7 @@ if __name__ == "__main__":
 # グラフのデータの持ち方
 if __name__ == "__main__":
     n, m = map(int, input().split())
-    
+
     adj = [[False] * n for _ in range(n)]
 
     for _ in range(m):
