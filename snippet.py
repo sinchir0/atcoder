@@ -6,6 +6,9 @@ a = int(input())
 # 数字の列
 a, b, c, d = map(int, input().split())
 
+# 数字の列を一つの配列で持つ
+N = map(int, list(input()))
+
 # 数字のlist
 num_list = list(map(int, input().split()))
 
