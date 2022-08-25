@@ -294,3 +294,84 @@ if __name__ == "__main__":
         v -= 1
         adj[u][v] = True
         adj[v][u] = True
+
+# 累積和
+accumulate = [0]
+
+for element in A:
+    accumulate.append(accumulate[-1] + element)
+
+# 2次元配列を作るときは、必ず内包表記を使うこと
+# NG
+visit = [[False] * W] * H
+# この方法だと、visit[0][0]にTrueを入れると、visit[1][0]にもTrueが入る。おそらくcopyの関係
+
+# OK
+visit = [[False] * W for _ in range(H)]
+
+# 計算量の限界
+# O(10 ** 8)ぐらいが限界
+# https://www.youtube.com/watch?v=2kt3pHZWvv4
+
+# 二分探索の問題
+# https://atcoder.jp/contests/abc265/tasks/abc265_d
+from bisect import bisect_left
+from itertools import accumulate
+
+if __name__ == "__main__":
+    N, P, Q, R = map(int, input().split())
+    A = list(map(int, input().split()))
+
+    # float("inf")を加える理由
+    # bisect_leftで一番右側のidx(rft_idx)が取れた場合、S[rft_idx]がIndexErrorになってしまうため
+    S = [0] + list(accumulate(A)) + [float("inf")]
+
+    for x in range(N - 1):
+        y = bisect_left(S, P + S[x])
+        if S[y] - S[x] != P:
+            continue
+
+        z = bisect_left(S, Q + S[y])
+        if S[z] - S[y] != Q:
+            continue
+
+        w = bisect_left(S, R + S[z])
+        if S[w] - S[z] != R:
+            continue
+
+        print("Yes")
+        quit()
+
+    print("No")
+
+
+# 二分探索の実装
+# https://www.youtube.com/watch?v=Hs4XsziFpPo
+# aの中にkeyが存在するかどうかをboolで返す
+def binary_search(a: list, key: int) -> bool:
+    n = len(a)
+
+    l = -1  # 左手
+    r = n  # 右手、aの最後のindex+1
+
+    # 右手と左手の範囲を少しずつ狭めていき、同じ値になったら終了
+    while r - l > 1:
+        m = (l + r) // 2
+
+        if a[m] == key:
+            return True
+
+        if a[m] > key:
+            r = m
+        else:
+            l = m
+
+    return False
+
+
+if __name__ == "__main__":
+    a = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+    a = sorted(a)
+
+    key = 10
+    print(binary_search(a, key))

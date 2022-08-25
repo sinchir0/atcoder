@@ -8,15 +8,14 @@ input_text = """
 
 def_input(input_text)
 
-from collections import defaultdict
-
 if __name__ == "__main__":
     N, M, T = map(int, input().split())
     A = list(map(int, input().split()))
-    bonus = defaultdict(int)
+
+    bonus = [0] * N
     for _ in range(M):
-        room_num, val = list(map(int, input().split()))
-        bonus[room_num - 1] = val
+        x, y = map(int, input().split())
+        bonus[x - 1] = y
 
     T += bonus[0]
 
